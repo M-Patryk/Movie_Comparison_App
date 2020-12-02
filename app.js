@@ -14,22 +14,40 @@ const fetchData = async (searchTerm) => {
 	return response.data.Search;
 };
 
+const root = document.querySelector('.autocomplete');			//Metoda dodajaca HTML kod do autocomplete
+root.innerHTML = `
+	<label><b>Search for a Movie</b></label>
+	<input class='input' />
+	<div class = 'dropdown'>
+		<div class = 'dropdown-menu'>
+			<div class = 'dropdown-content results'></div>
+		</div>
+	</div>
+`;
+
+const input = document.querySelector('input'); //Selecting the input
+
+const dropdown = document.querySelector('.dropdown')			//To jest od autocomplete
+const resultsWrapper = document.querySelector('.results')		//To jest od autocomplete
+
+
 const onInput = async (event) => {
 	// This is event for EventListener
 	//Tutaj jest ten event, ktory jest uruchamiany w momencie wykrycia przez EventListener
 	const movies = await fetchData(event.target.value);
 
+	dropdown.classList.add('is-active')
 	for (movie of movies) {
-		const div = document.createElement('div');
+		const autoCompleteOption = document.createElement('a');
 
-		div.innerHTML = `
+		autoCompleteOption.classList.add('dropdown-item')
+		autoCompleteOption.innerHTML = `
 		<img src="${movie.Poster}" />
-		<h1>${movie.Title}</h1>
+		${movie.Title}
 		`;
 
-		document.querySelector('#target').appendChild(div);
+		resultsWrapper.appendChild(autoCompleteOption);
 	}
-};
+};	
 
-const input = document.querySelector('input'); //Selecting the input
 input.addEventListener('input', debounce(onInput, 500)); // Add event listener that listens for inputs
