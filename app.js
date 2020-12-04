@@ -14,7 +14,7 @@ const fetchData = async (searchTerm) => {
 	return response.data.Search;
 };
 
-const root = document.querySelector('.autocomplete');			//Metoda dodajaca HTML kod do autocomplete
+const root = document.querySelector('.autocomplete'); //Metoda dodajaca HTML kod do autocomplete
 root.innerHTML = `
 	<label><b>Search for a Movie</b></label>
 	<input class='input' />
@@ -27,27 +27,28 @@ root.innerHTML = `
 
 const input = document.querySelector('input'); //Selecting the input
 
-const dropdown = document.querySelector('.dropdown')			//To jest od autocomplete
-const resultsWrapper = document.querySelector('.results')		//To jest od autocomplete
-
+const dropdown = document.querySelector('.dropdown'); //To jest od autocomplete
+const resultsWrapper = document.querySelector('.results'); //To jest od autocomplete
 
 const onInput = async (event) => {
 	// This is event for EventListener
 	//Tutaj jest ten event, ktory jest uruchamiany w momencie wykrycia przez EventListener
 	const movies = await fetchData(event.target.value);
 
-	dropdown.classList.add('is-active')
+	resultsWrapper.innerHTML = ''; // To clearuje liste filmow z autocomplete
+	dropdown.classList.add('is-active');
 	for (movie of movies) {
 		const autoCompleteOption = document.createElement('a');
 
-		autoCompleteOption.classList.add('dropdown-item')
+		const checkForImgSrc = movie.Poster === 'N/A' ? '' : movie.Poster;
+		autoCompleteOption.classList.add('dropdown-item');
 		autoCompleteOption.innerHTML = `
-		<img src="${movie.Poster}" />
+		<img src="${checkForImgSrc}" />
 		${movie.Title}
 		`;
 
 		resultsWrapper.appendChild(autoCompleteOption);
 	}
-};	
+};
 
 input.addEventListener('input', debounce(onInput, 500)); // Add event listener that listens for inputs
