@@ -35,19 +35,30 @@ const onInput = async (event) => {
 	//Tutaj jest ten event, ktory jest uruchamiany w momencie wykrycia przez EventListener
 	const movies = await fetchData(event.target.value);
 
+	if (!movies.length) {
+		// Algo to hide dropdown if something was removed from it and its empty
+		dropdown.classList.remove('is-active');
+		return;
+	}
+
 	resultsWrapper.innerHTML = ''; // To clearuje liste filmow z autocomplete
 	dropdown.classList.add('is-active');
-	for (movie of movies) {
-		const autoCompleteOption = document.createElement('a');
+	for (let movie of movies) {
+		const option = document.createElement('a');
 
 		const checkForImgSrc = movie.Poster === 'N/A' ? '' : movie.Poster;
-		autoCompleteOption.classList.add('dropdown-item');
-		autoCompleteOption.innerHTML = `
-		<img src="${checkForImgSrc}" />
-		${movie.Title}
+		option.classList.add('dropdown-item');
+		option.innerHTML = `
+			<img src="${checkForImgSrc}" />
+			${movie.Title}
 		`;
 
-		resultsWrapper.appendChild(autoCompleteOption);
+		option.addEventListener('click', () => {
+			dropdown.classList.remove('is-active');
+			input.value = movie.Title;
+		});
+
+		resultsWrapper.appendChild(option);
 	}
 };
 
