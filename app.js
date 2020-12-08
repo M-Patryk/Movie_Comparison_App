@@ -86,7 +86,7 @@ const movieTemplate = (movieDetails) => {
 	<article class = "media">
 		<figure class = "media-left">
 			<p class = "image">
-				<img src = "${movieDetails.Poster}"
+				<img src = "${movieDetails.Poster}" />
 			</p>
 		</figure>
 		<div class = "media-content> 
@@ -96,5 +96,26 @@ const movieTemplate = (movieDetails) => {
 				<p>${movieDetails.Plot}</p>
 			 </div>
 		</div>
+	</article>
+	<article class = "notification is-primary">
+		<p class = "title">${movieDetails.Awards}</p>
+		<p class = "subtitle">Awards</p>
+	</article>
+	<article class = "notification is-primary">
+		<p class = "title">${movieDetails.BoxOffice}</p>
+		<p class = "subtitle">Box Office</p>
+	</article>
+	<article class = "notification is-primary">
+		<p class = "title">${movieDetails.Metascore}</p>
+		<p class = "subtitle">Metascore</p>
+	</article>
+	<article class = "notification is-primary">
+		<p class = "title">${movieDetails.imdbRating}</p>
+		<p class = "subtitle">IMDB Rating</p>
+	</article>
+	<article class = "notification is-primary">
+		<p class = "title">${movieDetails.imdbVotes}</p>
+		<p class = "subtitle">IMDB Votes</p>
+	</article>
 	`;
 };
