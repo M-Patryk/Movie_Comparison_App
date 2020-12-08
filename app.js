@@ -26,13 +26,14 @@ const onMovieSelect = async (movie) => {
 };
 
 createAutoComplete({
-	root: document.querySelector('.autocomplete')
-})
-createAutoComplete({
-	root: document.querySelector('.autocomplete-two')
-})
-createAutoComplete({
-	root: document.querySelector('.autocomplete-three')
+	root: document.querySelector('.autocomplete'),
+	renderOption(movie){
+		const checkForImgSrc = movie.Poster === 'N/A' ? '' : movie.Poster;
+		return `
+		<img src="${checkForImgSrc}" />
+		${movie.Title} (${movie.Year})
+		`
+	}
 })
 
 
@@ -55,10 +56,6 @@ const movieTemplate = (movieDetails) => {
 	<article class = "notification is-primary">
 		<p class = "title">${movieDetails.Awards}</p>
 		<p class = "subtitle">Awards</p>
-	</article>
-	<article class = "notification is-primary">
-		<p class = "title">${movieDetails.BoxOffice}</p>
-		<p class = "subtitle">Box Office</p>
 	</article>
 	<article class = "notification is-primary">
 		<p class = "title">${movieDetails.Metascore}</p>
