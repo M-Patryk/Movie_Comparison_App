@@ -1,19 +1,3 @@
-const fetchData = async (searchTerm) => {
-	const response = await axios.get('http://www.omdbapi.com/', {
-		params : {
-			apikey : '9bea1d29',
-			s      : searchTerm
-			// i      : 'tt0848228'
-		}
-	});
-
-	if (response.data.Error) {
-		return [];
-	}
-	return response.data.Search;
-};
-
-
 const onMovieSelect = async (movie) => {
 	const response = await axios.get('http://www.omdbapi.com/', {
 		params : {
@@ -26,22 +10,35 @@ const onMovieSelect = async (movie) => {
 };
 
 createAutoComplete({
-	root: document.querySelector('.autocomplete'),
-	renderOption(movie){
+	root           : document.querySelector('.autocomplete'),
+	renderOption(movie) {
 		const checkForImgSrc = movie.Poster === 'N/A' ? '' : movie.Poster;
 		return `
 		<img src="${checkForImgSrc}" />
 		${movie.Title} (${movie.Year})
-		`
+		`;
 	},
-	onOptionSelect(movie){
-		onMovieSelect(movie)
+	onOptionSelect(movie) {
+		onMovieSelect(movie);
 	},
-	inputValue(movie){
-		return movie.Title
-	}
-})
+	inputValue(movie) {
+		return movie.Title;
+	},
+	async fetchData(searchTerm) {
+		const response = await axios.get('http://www.omdbapi.com/', {
+			params : {
+				apikey : '9bea1d29',
+				s      : searchTerm
+				// i      : 'tt0848228'
+			}
+		});
 
+		if (response.data.Error) {
+			return [];
+		}
+		return response.data.Search;
+	}
+});
 
 const movieTemplate = (movieDetails) => {
 	return `
