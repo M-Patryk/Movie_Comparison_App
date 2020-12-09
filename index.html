@@ -15,8 +15,7 @@
   <section class="hero is-primary is-bold">
     <div class="hero-body">
       <div class="container">
-        <h1 class="title">
-          Movie Fight
+        <h1 class="title">Movie Fight
           <span class="icon">
             <i class="fas fa-film"></i>
           </span>
@@ -25,8 +24,20 @@
     </div>
   </section>
   <div class="container">
-    <div class="autocomplete"></div> 
-    <div id="summary"></div>
+    <div class="columns">
+      <div class="column">
+        <div class="left-autocomplete"></div>
+        <div id="left-summary"></div>
+      </div>
+      <div class="column">
+        <div class="right-autocomplete"></div>
+        <div id="right-summary"></div>
+      </div>
+    </div>
+    <div class="column is-half notification is-primary tutorial">
+      <h1 class="title">Search for a movie on both sides</h1>
+      <p class="subtitle">We will tell you which is best!</p>
+    </div>
   </div>
   <script src="utils.js"></script>
   <script src="autocomplete.js"></script>
